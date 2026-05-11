@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="1st BDS Nationals 2026 Pre-Registration">
+<meta property="og:image" content="thumbnail.jpg">
+<title>BDS 1st Nationals 2026 — Pre Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #8B6914;
+    --green: #1A6B3A;
+    --green-bright: #27AE60;
+    --green-glow: #2ECC71;
+    --dark: #070B0F;
+    --darker: #040608;
+    --mid: #111820;
+    --surface: #141C26;
+    --surface2: #1A2535;
+    --white: #F5F0E8;
+    --muted: #7A8899;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--darker);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED PITCH BACKGROUND ── */
+  .pitch-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .pitch-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(4,8,6,0.95) 0%, rgba(7,11,9,0.75) 40%, rgba(4,8,6,0.92) 100%),
+      repeating-linear-gradient(90deg,
+        transparent 0px, transparent 80px,
+        rgba(255,255,255,0.022) 80px, rgba(255,255,255,0.022) 82px
+      ),
+      repeating-linear-gradient(0deg,
+        transparent 0px, transparent 60px,
+        rgba(255,255,255,0.022) 60px, rgba(255,255,255,0.022) 62px
+      );
+    background-color: #041008;
+  }
+
+  .pitch-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.07;
+  }
+
+  .spotlight {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(130px);
+    animation: pulse-spot 6s ease-in-out infinite;
+  }
+  .spotlight-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(39,174,96,0.18) 0%, transparent 70%);
+    top: -250px; left: 5%;
+  }
+  .spotlight-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.14) 0%, transparent 70%);
+    top: 15%; right: 0%;
+    animation-delay: 2s;
+  }
+  .spotlight-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(39,174,96,0.10) 0%, transparent 70%);
+    bottom: 5%; left: 40%;
+    animation-delay: 4s;
+  }
+  @keyframes pulse-spot {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: float-up linear infinite;
+    opacity: 0;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 60px;
+    border-bottom: 1px solid rgba(39,174,96,0.2);
+    backdrop-filter: blur(12px);
+    background: rgba(4,6,4,0.55);
+  }
+
+  .logo-mark { display: flex; align-items: center; gap: 16px; }
+  .logo-crest {
+    width: 56px; height: 56px;
+    animation: crest-glow 3s ease-in-out infinite;
+  }
+  @keyframes crest-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(39,174,96,0.4)) drop-shadow(0 0 16px rgba(201,168,76,0.2)); }
+    50% { filter: drop-shadow(0 0 24px rgba(39,174,96,0.8)) drop-shadow(0 0 30px rgba(201,168,76,0.4)); }
+  }
+
+  .logo-text .abbr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .logo-text .full {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  nav { display: flex; gap: 36px; align-items: center; }
+  nav a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 600;
+  }
+  nav a:hover { color: var(--gold); }
+
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-glow);
+    font-weight: 700;
+    padding: 6px 16px;
+    border: 1px solid rgba(46,204,113,0.3);
+    background: rgba(46,204,113,0.06);
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green-glow);
+    animation: live-blink 1.2s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--green-glow);
+  }
+  @keyframes live-blink {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px var(--green-glow); }
+    50% { opacity: 0.4; transform: scale(0.7); box-shadow: none; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 10;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px 60px;
+  }
+
+  .edition-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.2s forwards;
+  }
+  .edition-tag::before { content: ''; display: block; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .edition-tag::after { content: ''; display: block; width: 40px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 148px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.5s forwards;
+  }
+  .hero-title .line1 { color: var(--white); display: block; }
+  .hero-title .line2 {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--gold);
+    display: block;
+  }
+  .hero-title .line3 { color: var(--gold); display: block; }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 20px 0 52px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.8s forwards;
+  }
+
+  /* ── OPEN BANNER ── */
+  .open-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    opacity: 0;
+    animation: fade-up 1s ease 1s forwards;
+  }
+
+  .open-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(46,204,113,0.4);
+    padding: 10px 28px;
+    background: rgba(46,204,113,0.06);
+    margin-bottom: 4px;
+  }
+  .open-badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green-glow);
+    box-shadow: 0 0 12px var(--green-glow);
+    animation: live-blink 1.5s ease-in-out infinite;
+  }
+  .open-badge-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-glow);
+    font-weight: 700;
+  }
+
+  /* The Big CTA Button */
+  .cta-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .cta-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse, rgba(39,174,96,0.35) 0%, transparent 70%);
+    filter: blur(20px);
+    animation: cta-pulse 2.5s ease-in-out infinite;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  @keyframes cta-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+
+  .cta-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 64px;
+    background: linear-gradient(135deg, #1A6B3A 0%, #27AE60 50%, #1A6B3A 100%);
+    background-size: 200% 100%;
+    border: none;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 4px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.4s;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    animation: btn-shine 4s linear infinite;
+    box-shadow: 0 8px 40px rgba(39,174,96,0.35);
+  }
+  @keyframes btn-shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 16px 60px rgba(39,174,96,0.55);
+    letter-spacing: 5px;
+  }
+  .cta-btn:active { transform: translateY(0) scale(0.99); }
+
+  .cta-btn .btn-icon { font-size: 28px; }
+
+  .cta-secondary {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .cta-secondary strong { color: var(--green-bright); }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STATS ── */
+  .stats-strip {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    margin: 36px 0;
+    padding: 0 60px;
+    gap: 0;
+  }
+
+  .stat-card {
+    flex: 1;
+    max-width: 200px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: none;
+    padding: 28px 20px;
+    background: rgba(20,28,38,0.8);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    transition: all 0.3s;
+    opacity: 0;
+    animation: fade-up 0.6s ease forwards;
+  }
+  .stat-card:first-child { border-left: 1px solid rgba(201,168,76,0.15); }
+  .stat-card:hover { background: rgba(39,174,96,0.06); border-color: rgba(39,174,96,0.3); }
+  .stat-card:nth-child(1) { animation-delay: 1.4s; }
+  .stat-card:nth-child(2) { animation-delay: 1.5s; }
+  .stat-card:nth-child(3) { animation-delay: 1.6s; }
+  .stat-card:nth-child(4) { animation-delay: 1.7s; }
+  .stat-card:nth-child(5) { animation-delay: 1.8s; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-divider {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px 60px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 2s forwards;
+  }
+  .gold-divider::before, .gold-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .divider-diamond {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── HOW TO REGISTER ── */
+  .register-section {
+    position: relative;
+    z-index: 10;
+    padding: 40px 60px 60px;
+    text-align: center;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 48px;
+    display: block;
+  }
+
+  .steps-row {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    max-width: 960px;
+    margin: 0 auto 56px;
+  }
+  .step-box {
+    flex: 1;
+    padding: 32px 20px;
+    background: rgba(20,28,38,0.9);
+    border: 1px solid rgba(201,168,76,0.12);
+    position: relative;
+    transition: all 0.3s;
+  }
+  .step-box:hover {
+    border-color: rgba(39,174,96,0.4);
+    background: rgba(39,174,96,0.04);
+    transform: translateY(-4px);
+  }
+  .step-box::after {
+    content: '→';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-dark);
+    font-size: 20px;
+    z-index: 2;
+  }
+  .step-box:last-child::after { display: none; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .step-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .step-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── BIG CTA SECTION ── */
+  .cta-section {
+    position: relative;
+    z-index: 10;
+    padding: 32px 60px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cta-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-align: center;
+  }
+  .cta-headline span { color: var(--green-bright); }
+
+  /* Registration form card */
+  .reg-card {
+    background: rgba(20,28,38,0.95);
+    border: 1px solid rgba(39,174,96,0.25);
+    backdrop-filter: blur(16px);
+    padding: 40px 48px;
+    max-width: 580px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 60px rgba(39,174,96,0.08);
+  }
+  .reg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green-bright), transparent);
+  }
+
+  .reg-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .reg-card p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .form-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%;
+    background: rgba(7,11,15,0.8);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 12px 16px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-input:focus {
+    border-color: rgba(39,174,96,0.6);
+    box-shadow: 0 0 16px rgba(39,174,96,0.1);
+  }
+  .form-input::placeholder { color: rgba(122,136,153,0.5); font-size: 13px; }
+  select.form-input { cursor: pointer; }
+  select.form-input option { background: #111820; color: var(--white); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #1A6B3A 0%, #27AE60 50%, #1A6B3A 100%);
+    background-size: 200% 100%;
+    border: none;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 8px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    animation: btn-shine 4s linear infinite;
+    box-shadow: 0 4px 24px rgba(39,174,96,0.25);
+  }
+  @keyframes btn-shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(39,174,96,0.45);
+  }
+  .submit-btn:active { transform: translateY(0); }
+
+  .form-note {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── FLOATING BALLS ── */
+  .ball-orbit {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .ball {
+    position: absolute;
+    animation: orbit linear infinite;
+    opacity: 0.1;
+  }
+  @keyframes orbit {
+    from { transform: translateY(110vh) rotate(0deg); }
+    to { transform: translateY(-20vh) rotate(720deg); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 10;
+    border-top: 1px solid rgba(39,174,96,0.15);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(4,8,4,0.7);
+    backdrop-filter: blur(8px);
+  }
+  .footer-copy {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer-copy strong { color: var(--gold); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--green-bright); }
+
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-overlay {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+  .success-icon {
+    font-size: 64px;
+    animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--green-glow);
+  }
+  .success-msg {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 380px;
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 16px 24px; }
+    nav { display: none; }
+    .hero { padding: 60px 24px 40px; }
+    .hero-title { font-size: clamp(60px, 15vw, 100px); }
+    .cta-btn { font-size: 20px; padding: 18px 40px; }
+    .stats-strip { padding: 0 16px; flex-wrap: wrap; }
+    .stat-card { min-width: calc(50% - 1px); max-width: 100%; }
+    .steps-row { flex-direction: column; gap: 2px; }
+    .step-box::after { display: none; }
+    .reg-card { padding: 28px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .register-section, .cta-section { padding: 32px 24px 48px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="pitch-bg">
+  <svg class="pitch-lines" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect x="160" y="80" width="1600" height="920" fill="none" stroke="white" stroke-width="2"/>
+    <line x1="960" y1="80" x2="960" y2="1000" stroke="white" stroke-width="2"/>
+    <circle cx="960" cy="540" r="120" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="960" cy="540" r="4" fill="white"/>
+    <rect x="160" y="320" width="260" height="400" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="1500" y="320" width="260" height="400" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="160" y="420" width="100" height="200" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="1660" y="420" width="100" height="200" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M160,100 A30,30 0 0,1 190,80" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1730,80 A30,30 0 0,1 1760,110" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1760,970 A30,30 0 0,1 1730,1000" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M190,1000 A30,30 0 0,1 160,970" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="380" cy="540" r="4" fill="white"/>
+    <circle cx="1540" cy="540" r="4" fill="white"/>
+    <path d="M290,440 A130,130 0 0,0 290,640" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1630,440 A130,130 0 0,1 1630,640" fill="none" stroke="white" stroke-width="2"/>
+  </svg>
+  <div class="spotlight spotlight-1"></div>
+  <div class="spotlight spotlight-2"></div>
+  <div class="spotlight spotlight-3"></div>
+  <div class="particles" id="particles"></div>
+</div>
+
+<div class="scanlines"></div>
+<div class="ball-orbit" id="balls"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-mark">
+    <svg class="logo-crest" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 4L48 14V34L28 52L8 34V14L28 4Z" fill="rgba(39,174,96,0.1)" stroke="#C9A84C" stroke-width="1.5"/>
+      <path d="M28 10L42 18V32L28 46L14 32V18L28 10Z" fill="none" stroke="rgba(39,174,96,0.3)" stroke-width="0.5"/>
+      <text x="28" y="34" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#C9A84C" letter-spacing="1">BDS</text>
+      <circle cx="28" cy="18" r="3" fill="#27AE60" opacity="0.9"/>
+    </svg>
+    <div class="logo-text">
+      <div class="abbr">BDS</div>
+      <div class="full">Bangladesh Football</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Teams</a>
+    <a href="#">Schedule</a>
+    <a href="#">Gallery</a>
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      Registration Open
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="edition-tag">— 1st National Championship —</div>
+  <div class="hero-eyebrow">Inaugural Edition · Bangladesh · 2026</div>
+  <h1 class="hero-title">
+    <span class="line1">BDS</span>
+    <span class="line2">NATIONALS</span>
+    <span class="line3">2026</span>
+  </h1>
+  <p class="hero-subtitle">The Future of Bangladesh Football Begins Here</p>
+
+  <div class="open-banner">
+    <div class="open-badge">
+      <div class="open-badge-dot"></div>
+      <span class="open-badge-text">Direct Registration Now Open</span>
+    </div>
+
+    <div class="cta-wrapper">
+      <div class="cta-glow"></div>
+      <a href="https://ban-ds.github.io/1st-bds-nationals-2026-reg/" class="cta-btn">
+        <span class="btn-icon">⚽</span>
+        Register Your Team Now
+        <span class="btn-icon">→</span>
+      </a>
+    </div>
+
+    <div class="cta-secondary">Secure your spot · <strong>Direct Registration Phase Active</strong></div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-card">
+    <span class="stat-num">1st</span>
+    <span class="stat-label">Edition</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">2026</span>
+    <span class="stat-label">Year</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">🏆</span>
+    <span class="stat-label">Nationals</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num" style="color: var(--green-bright);">OPEN</span>
+    <span class="stat-label">Registration</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">BD</span>
+    <span class="stat-label">Bangladesh</span>
+  </div>
+</div>
+
+<!-- GOLD DIVIDER -->
+<div class="gold-divider"><div class="divider-diamond"></div></div>
+
+<!-- HOW TO REGISTER -->
+<section class="register-section">
+  <span class="section-label">How It Works</span>
+
+  <div class="steps-row">
+    <div class="step-box">
+      <span class="step-num">01</span>
+      <span class="step-icon">📋</span>
+      <span class="step-title">Fill the Form</span>
+      <p class="step-desc">Enter your team details, contact info, and category below.</p>
+    </div>
+    <div class="step-box">
+      <span class="step-num">02</span>
+      <span class="step-icon">✅</span>
+      <span class="step-title">Confirmation</span>
+      <p class="step-desc">Receive an official confirmation from our team.</p>
+    </div>
+  </div>
+</section>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 <strong>BDS Nationals</strong> · Bangladesh Football · All Rights Reserved</div>
+  <div class="footer-links">
+    <a href="#">Contact</a>
+    <a href="#">Rules</a>
+    <a href="#">Media</a>
+    <a href="#">Sponsors</a>
+  </div>
+</footer>
+
+<script>
+  // Particles
+  const pContainer = document.getElementById('particles');
+  const colors = ['#C9A84C', '#27AE60', '#2ECC71'];
+  for (let i = 0; i < 35; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      background: ${c};
+      animation-duration: ${Math.random() * 12 + 8}s;
+      animation-delay: ${Math.random() * 10}s;
+      --drift: ${(Math.random() - 0.5) * 80}px;
+    `;
+    pContainer.appendChild(p);
+  }
+
+  // Floating balls
+  const ballContainer = document.getElementById('balls');
+  for (let i = 0; i < 10; i++) {
+    const b = document.createElement('div');
+    b.className = 'ball';
+    b.textContent = '⚽';
+    b.style.cssText = `
+      left: ${Math.random() * 100}%;
+      font-size: ${Math.random() * 32 + 14}px;
+      animation-duration: ${Math.random() * 22 + 12}s;
+      animation-delay: ${Math.random() * -22}s;
+      opacity: ${Math.random() * 0.09 + 0.04};
+    `;
+    ballContainer.appendChild(b);
+  }
+
+  // Form submit
+  function handleSubmit() {
+    const required = ['teamName', 'contactName', 'phone', 'email', 'category'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'rgba(231,76,60,0.7)';
+        valid = false;
+        setTimeout(() => { el.style.borderColor = 'rgba(201,168,76,0.2)'; }, 2000);
+      }
+    });
+    if (!valid) return;
+
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+    formContent.style.display = 'none';
+    successContent.style.display = 'flex';
+  }
+</script>
+</body>
+</html>
