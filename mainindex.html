@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta property="og:title" content="1st BDS Nationals 2026 Pre-Registration">
+<meta property="og:image" content="thumbnail.jpg">
+
+<title>1st BDS Nationals 2026 — Pre-Registration</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --void: #04040a;
+  --deep: #070710;
+  --surface: #0c0c18;
+  --card: #10101e;
+  --elevated: #16162a;
+  --hover: #1e1e30;
+  --border: rgba(255,255,255,0.07);
+  --border-gold: rgba(200,160,40,0.35);
+  --gold: #c8a028;
+  --gold-bright: #e8c048;
+  --gold-dim: rgba(200,160,40,0.12);
+  --gold-glow: rgba(200,160,40,0.25);
+  --blue: #4f7fff;
+  --blue-dim: rgba(79,127,255,0.1);
+  --teal: #00d4a0;
+  --rose: #ff4f7f;
+  --text: #eeeef5;
+  --text-2: #9090b0;
+  --text-3: #50506a;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 18px;
+  --t: 0.25s cubic-bezier(0.4,0,0.2,1);
+  --t-slow: 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body {
+  font-family: var(--font-body);
+  background: var(--void);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 10px; }
+
+/* NOISE TEXTURE */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ════════════════ NAVBAR ════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 5vw, 60px);
+  background: rgba(4,4,10,0.7);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.nav-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+.nav-title span { display: block; font-size: 0.65rem; font-weight: 400; color: var(--text-2); font-family: var(--font-body); letter-spacing: 1px; text-transform: uppercase; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-2);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all var(--t);
+  letter-spacing: 0.2px;
+}
+.nav-links a:hover { color: var(--text); background: var(--hover); }
+.nav-links .nav-admin {
+  color: var(--gold);
+  border: 1px solid var(--border-gold);
+  background: var(--gold-dim);
+}
+.nav-links .nav-admin:hover { background: rgba(200,160,40,0.2); color: var(--gold-bright); box-shadow: 0 0 20px var(--gold-glow); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { width: 22px; height: 2px; background: var(--text-2); border-radius: 2px; transition: all var(--t); }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: rgba(7,7,16,0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 10px 16px; }
+}
+
+/* ════════════════ HERO ════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px clamp(16px, 5vw, 80px) 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orb backgrounds */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(200,160,40,0.12) 0%, transparent 70%);
+  top: 10%; left: 50%;
+  transform: translateX(-50%);
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.orb2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(79,127,255,0.09) 0%, transparent 70%);
+  top: 40%; left: 10%;
+  animation: orbFloat2 10s ease-in-out infinite;
+}
+.orb3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0,212,160,0.07) 0%, transparent 70%);
+  top: 20%; right: 5%;
+  animation: orbFloat 12s ease-in-out infinite reverse;
+}
+
+@keyframes orbFloat {
+  0%,100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(-30px) translateX(-50%); }
+}
+@keyframes orbFloat2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(20px); }
+}
+
+/* Particle canvas */
+#heroCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Grid overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.8s 0.1s ease both;
+  max-width: 900px;
+}
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 50%, #fff8e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--text-2);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 44px;
+  font-weight: 300;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+  color: #000;
+  border: none;
+  padding: 14px 36px;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--t);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.btn-primary:hover::after { transform: translateX(100%); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,160,40,0.4); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 14px 36px;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover { border-color: var(--border-gold); color: var(--gold); background: var(--gold-dim); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-3);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: fadeUp 1s 0.6s ease both;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollDown 1.5s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════ STATS ════════════════ */
+.stats-section {
+  padding: 80px clamp(16px, 5vw, 80px);
+  position: relative;
+}
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--border-gold), transparent);
+}
+.stats-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.section-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--t);
+  cursor: default;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.stat-card:hover { border-color: var(--border-gold); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4), var(--shadow-gold, 0 0 20px rgba(200,160,40,0.1)); }
+.stat-card:hover::before { opacity: 1; }
+
+.stat-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.stat-icon.gold { background: var(--gold-dim); }
+.stat-icon.blue { background: var(--blue-dim); }
+.stat-icon.teal { background: rgba(0,212,160,0.1); }
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-2);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+.stat-badge {
+  position: absolute;
+  top: 20px; right: 20px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(0,212,160,0.1);
+  border: 1px solid rgba(0,212,160,0.2);
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, var(--card) 25%, var(--elevated) 50%, var(--card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ════════════════ BOARD ════════════════ */
+.board-section {
+  padding: 80px clamp(16px, 5vw, 80px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.board-toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+  max-width: 380px;
+}
+.search-wrap::before {
+  content: '⌕';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 14px 10px 40px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;
+  transition: all var(--t);
+}
+.search-input:focus { border-color: var(--border-gold); background: var(--elevated); }
+.search-input::placeholder { color: var(--text-3); }
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.filter-btn.active, .filter-btn:hover { border-color: var(--border-gold); color: var(--gold); background: var(--gold-dim); }
+
+.sort-select {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  outline: none;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.sort-select:focus { border-color: var(--border-gold); }
+
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-wrap th {
+  background: var(--elevated);
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.table-wrap td {
+  padding: 16px 20px;
+  font-size: 0.88rem;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+  transition: all var(--t);
+}
+.table-wrap tr:last-child td { border-bottom: none; }
+.table-wrap tr:hover td { background: var(--hover); color: var(--text); }
+
+.team-name-cell {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+.serial-cell {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.type-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.type-open { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(79,127,255,0.2); }
+.type-inst { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--border-gold); }
+
+.date-cell {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-3);
+}
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.88rem; }
+
+.table-footer {
+  padding: 14px 20px;
+  background: var(--elevated);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+
+/* ════════════════ FORM SECTION ════════════════ */
+.form-section {
+  padding: 80px clamp(16px, 5vw, 80px);
+  max-width: 780px;
+  margin: 0 auto;
+}
+.form-section .section-header { text-align: center; margin-bottom: 52px; }
+
+/* Step indicator */
+.steps-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 44px;
+  gap: 0;
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 1;
+  max-width: 130px;
+}
+.step-circle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  color: var(--text-3);
+  background: var(--card);
+  transition: all var(--t-slow);
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+}
+.step-item.active .step-circle {
+  border-color: var(--gold);
+  color: #000;
+  background: var(--gold);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+.step-item.done .step-circle {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(0,212,160,0.1);
+}
+.step-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-3);
+  text-align: center;
+  transition: color var(--t);
+  white-space: nowrap;
+}
+.step-item.active .step-label { color: var(--gold); }
+.step-item.done .step-label { color: var(--teal); }
+
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin-top: -20px;
+  transition: background var(--t-slow);
+  min-width: 20px;
+}
+.step-connector.done { background: var(--teal); }
+
+/* Form card */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 5vw, 48px);
+  position: relative;
+  overflow: hidden;
+}
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-bright) 70%, transparent);
+}
+
+.form-step { display: none; }
+.form-step.active {
+  display: block;
+  animation: stepIn 0.35s ease both;
+}
+@keyframes stepIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.step-desc {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+.field {
+  margin-bottom: 20px;
+}
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+.field label span { color: var(--rose); margin-left: 2px; }
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: all var(--t);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--border-gold);
+  background: var(--hover);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--text-3); }
+.field textarea { resize: vertical; min-height: 100px; }
+.field select { cursor: pointer; }
+.field select option { background: var(--deep); color: var(--text); }
+
+.field-error {
+  font-size: 0.75rem;
+  color: var(--rose);
+  margin-top: 5px;
+  display: none;
+}
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--rose); }
+.field.has-error .field-error { display: block; }
+
+/* Member card */
+.member-card {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  transition: border-color var(--t);
+}
+.member-card:hover { border-color: var(--border-gold); }
+
+.member-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.member-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 5px 14px;
+  border-radius: 100px;
+}
+.member-role-badge .role-num {
+  width: 20px; height: 20px;
+  background: var(--gold);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* Photo upload */
+.photo-upload-area {
+  border: 2px dashed var(--border);
+  border-radius: var(--r);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--t);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.photo-upload-area:hover { border-color: var(--border-gold); background: var(--gold-dim); }
+.photo-upload-area.has-file { border-color: var(--teal); border-style: solid; background: rgba(0,212,160,0.05); }
+.photo-upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.photo-upload-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.photo-upload-text { font-size: 0.82rem; color: var(--text-2); }
+.photo-upload-text strong { color: var(--gold); }
+.photo-preview { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin: 0 auto 8px; display: none; }
+
+/* Buttons */
+.form-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.btn-back {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  padding: 12px 28px;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.btn-back:hover { border-color: var(--border-gold); color: var(--gold); background: var(--gold-dim); }
+.btn-next, .btn-submit {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  border: none;
+  color: #000;
+  padding: 12px 32px;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--t);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+  justify-content: center;
+}
+.btn-next:hover, .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,160,40,0.35); }
+.btn-next:disabled, .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.loading .spinner { display: block; }
+.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ════════════════ CONTACT ════════════════ */
+.contact-section {
+  padding: 80px clamp(16px, 5vw, 80px);
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 24px;
+  transition: all var(--t);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.contact-card:hover { border-color: var(--border-gold); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+.contact-icon { font-size: 1.8rem; }
+.contact-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.contact-value { font-size: 0.92rem; color: var(--text-2); }
+
+/* ════════════════ FOOTER ════════════════ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px clamp(16px, 5vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.footer-brand span { color: var(--gold); }
+.footer-copy { font-size: 0.78rem; color: var(--text-3); }
+
+/* ════════════════ MODAL ════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--r-lg);
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  position: relative;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  animation: iconBounce 0.5s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes iconBounce {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+.modal h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.modal p { color: var(--text-2); font-size: 0.92rem; line-height: 1.7; margin-bottom: 24px; }
+.modal-reg-id {
+  background: var(--elevated);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin-bottom: 28px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+/* ════════════════ TOAST ════════════════ */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 340px;
+  animation: toastIn 0.3s ease both;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.success { border-color: rgba(0,212,160,0.4); }
+.toast.error { border-color: rgba(255,79,127,0.4); }
+.toast.info { border-color: var(--border-gold); }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(110%); }
+}
+
+/* ════════════════ SCROLL REVEAL ════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Upload progress */
+.upload-progress {
+  margin-top: 8px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  display: none;
+}
+.upload-progress.active { display: block; }
+.upload-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Team type selector */
+.type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.type-option {
+  background: var(--elevated);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all var(--t);
+  text-align: center;
+}
+.type-option:hover { border-color: var(--border-gold); }
+.type-option.selected { border-color: var(--gold); background: var(--gold-dim); }
+.type-option input { display: none; }
+.type-option-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.type-option-label { font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 4px; }
+.type-option-desc { font-size: 0.75rem; color: var(--text-2); }
+
+/* Separator */
+.section-sep {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 80px);
+}
+.sep-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo">BDS</div>
+    <div class="nav-title">
+      1st BDS Nationals
+      <span>2026 · Debate Tournament</span>
+    </div>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#register">Register</a></li>
+    <li><a href="#board">Live Board</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="admin.html" class="nav-admin">Admin ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+
+  <div class="hero-eyebrow">Pre-Registration Open</div>
+
+  <h1>
+    1st BDS Nationals
+    <span class="line2">2026</span>
+  </h1>
+
+  <p class="hero-sub">
+    Bangladesh Debate Society's inaugural national tournament.
+    Unlimited format. Elite competition. Register your team today.
+  </p>
+
+  <div class="hero-ctas">
+    <button class="btn-primary" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">
+      Register Now →
+    </button>
+    <button class="btn-secondary" onclick="document.getElementById('board').scrollIntoView({behavior:'smooth'})">
+      View Live Board
+    </button>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section" id="stats">
+  <div class="stats-header reveal">
+    <div class="section-eyebrow">Live Statistics</div>
+    <h2 class="section-title">Tournament at a Glance</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card reveal" style="transition-delay:0.1s">
+      <div class="stat-icon gold">🏆</div>
+      <div class="stat-num" id="statTeams">0</div>
+      <div class="stat-label">Registered Teams</div>
+      <div class="stat-badge">Live</div>
+    </div>
+    <div class="stat-card reveal" style="transition-delay:0.15s">
+      <div class="stat-icon blue">🏛️</div>
+      <div class="stat-num" id="statInst">0</div>
+      <div class="stat-label">Institutions</div>
+    </div>
+    <div class="stat-card reveal" style="transition-delay:0.2s">
+      <div class="stat-icon teal">👥</div>
+      <div class="stat-num" id="statPart">0</div>
+      <div class="stat-label">Total Participants</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"><div class="sep-line"></div></div>
+
+<!-- REGISTRATION BOARD -->
+<section class="board-section" id="board">
+  <div class="stats-header reveal">
+    <div class="section-eyebrow">Public Board</div>
+    <h2 class="section-title">Registered Teams</h2>
+  </div>
+
+  <div class="board-toolbar reveal">
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search team or institution..." oninput="debouncedSearch()"/>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter(this,'all')">All</button>
+      <button class="filter-btn" data-filter="Open" onclick="setFilter(this,'Open')">Open</button>
+      <button class="filter-btn" data-filter="Institutional" onclick="setFilter(this,'Institutional')">Institutional</button>
+      <select class="sort-select" id="sortSelect" onchange="renderBoard()">
+        <option value="desc">Latest First</option>
+        <option value="asc">Oldest First</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team Name</th>
+          <th>Institution</th>
+          <th>Representative</th>
+          <th>Type</th>
+          <th>Registered</th>
+        </tr>
+      </thead>
+      <tbody id="boardTbody">
+        <tr><td colspan="6"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading registrations...</p></div></td></tr>
+      </tbody>
+    </table>
+    <div class="table-footer">
+      <span id="boardCount">Loading...</span>
+      <span id="boardPage" style="color:var(--gold);font-family:var(--font-mono);font-size:0.75rem"></span>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"><div class="sep-line"></div></div>
+
+<!-- REGISTRATION FORM -->
+<section class="form-section" id="register">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Join the Tournament</div>
+    <h2 class="section-title" style="font-family:var(--font-display)">Team Pre-Registration</h2>
+    <p style="margin-top:12px;color:var(--text-2);font-size:0.9rem;line-height:1.7">Complete all 4 steps to secure your team's spot at the 1st BDS Nationals 2026.</p>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-track reveal">
+    <div class="step-item active" id="si-1">
+      <div class="step-circle">01</div>
+      <div class="step-label">Representative</div>
+    </div>
+    <div class="step-connector" id="sc-1"></div>
+    <div class="step-item" id="si-2">
+      <div class="step-circle">02</div>
+      <div class="step-label">Team Info</div>
+    </div>
+    <div class="step-connector" id="sc-2"></div>
+    <div class="step-item" id="si-3">
+      <div class="step-circle">03</div>
+      <div class="step-label">Members</div>
+    </div>
+    <div class="step-connector" id="sc-3"></div>
+    <div class="step-item" id="si-4">
+      <div class="step-circle">04</div>
+      <div class="step-label">Finalize</div>
+    </div>
+  </div>
+
+  <div class="form-card reveal">
+
+    <!-- STEP 1 -->
+    <div class="form-step active" id="step-1">
+      <div class="step-title">Representative Details</div>
+      <div class="step-desc">The primary contact person for your team. This information is kept private.</div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name <span>*</span></label>
+          <input type="text" id="rep_name" placeholder="Your full name"/>
+          <div class="field-error">Name is required</div>
+        </div>
+        <div class="field">
+          <label>Institution <span>*</span></label>
+          <input type="text" id="rep_inst" placeholder="University / College name"/>
+          <div class="field-error">Institution is required</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Email Address <span>*</span></label>
+          <input type="email" id="rep_email" placeholder="you@email.com"/>
+          <div class="field-error">Valid email is required</div>
+        </div>
+        <div class="field">
+          <label>Mobile Number <span>*</span></label>
+          <input type="tel" id="rep_mobile" placeholder="+880XXXXXXXXXX"/>
+          <div class="field-error">Mobile is required</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>WhatsApp Number</label>
+          <input type="tel" id="rep_whatsapp" placeholder="If different from mobile"/>
+        </div>
+        <div class="field">
+          <label>Facebook Profile</label>
+          <input type="url" id="rep_fb" placeholder="facebook.com/yourprofile"/>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <div></div>
+        <button class="btn-next" onclick="goStep(2)">
+          <span class="btn-text">Continue →</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="form-step" id="step-2">
+      <div class="step-title">Team Information</div>
+      <div class="step-desc">Choose a unique team name and specify your team type.</div>
+
+      <div class="field">
+        <label>Team Name <span>*</span></label>
+        <input type="text" id="team_name" placeholder="Enter your team name"/>
+        <div class="field-error">Team name is required</div>
+      </div>
+
+      <div class="field">
+        <label>Team Type <span>*</span></label>
+        <div class="type-selector">
+          <label class="type-option selected" id="type-open">
+            <input type="radio" name="team_type" value="Open" checked/>
+            <div class="type-option-icon">🌍</div>
+            <span class="type-option-label">Open</span>
+            <span class="type-option-desc">Open to all participants regardless of institution</span>
+          </label>
+          <label class="type-option" id="type-inst">
+            <input type="radio" name="team_type" value="Institutional"/>
+            <div class="type-option-icon">🏛️</div>
+            <span class="type-option-label">Institutional</span>
+            <span class="type-option-desc">Representing a specific institution or organization</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(1)">← Back</button>
+        <button class="btn-next" onclick="goStep(3)">
+          <span class="btn-text">Continue →</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="form-step" id="step-3">
+      <div class="step-title">Team Members</div>
+      <div class="step-desc">Add exactly 4 members: Speaker 1, Speaker 2, Speaker 3, and Bench. Upload a photo for each.</div>
+
+      <div id="members-container"></div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(2)">← Back</button>
+        <button class="btn-next" onclick="goStep(4)">
+          <span class="btn-text">Continue →</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="form-step" id="step-4">
+      <div class="step-title">Additional Information</div>
+      <div class="step-desc">Review your submission and add any additional queries or notes.</div>
+
+      <!-- Summary -->
+      <div id="summary-box" style="background:var(--elevated);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:24px;font-size:0.85rem;line-height:1.8">
+        Loading summary...
+      </div>
+
+      <div class="field">
+        <label>Additional Query / Notes</label>
+        <textarea id="additional_query" placeholder="Any questions, dietary requirements, special requests, or notes for the organizing committee..."></textarea>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(3)">← Back</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitRegistration()">
+          <span class="btn-text">Submit Registration ✓</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-sep"><div class="sep-line"></div></div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title" style="font-family:var(--font-display)">Contact & Support</h2>
+    <p style="margin-top:12px;color:var(--text-2);font-size:0.9rem">Reach out to the organizing committee for any queries.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <a class="contact-card" href="mailto:info@bdsnats2026.org">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-type">Email</div>
+      <div class="contact-value">bds.debate2026@gmail.com</div>
+    </a>
+    <a class="contact-card" href="tel:+880 1917-025415">
+      <div class="contact-icon">📞</div>
+      <div class="contact-type">Phone: FOUNDER</div>
+      <div class="contact-value">+880 1917-025415</div>
+    </a>
+    <a class="contact-card" href="tel:+880 1917-025415">
+    <div class="contact-icon">📞</div>
+    <div class="contact-type">Phone: MUNMUN ERA</div>
+    <div class="contact-value">+880 1827-291674</div>
+    </a>
+    <a class="contact-card" href="tel:+880 1917-025415">
+      <div class="contact-icon">📞</div>
+      <div class="contact-type">Phone: Md. Manjurul Hasan Sajid</div>
+      <div class="contact-value">+880 17837-13735</div>
+    </a>
+    <a class="contact-card" href="https://www.facebook.com/share/18omp429qP/" target="_blank">
+      <div class="contact-icon">📘</div>
+      <div class="contact-type">Facebook</div>
+      <div class="contact-value">Bangladesh Debater's Society</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">BDS <span>Nationals</span> 2026</div>
+  <div class="footer-copy">Bangladesh Debate Society · All Rights Reserved</div>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h2>Pre-Registration Successful!</h2>
+    <p>Your team has been officially pre-registered for the 1st BDS Nationals 2026. The organizing committee will contact you shortly.</p>
+    <div class="modal-reg-id" id="modalRegId">Registration ID: —</div>
+    <button class="btn-primary" style="width:100%" onclick="closeModal()">Done — View on Board</button>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// 1. SUPABASE INIT
+// ═══════════════════════════════════════════════
+const SUPABASE_URL = 'https://cqhbjyzpmofwifqryfzt.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxaGJqeXpwbW9md2lmcXJ5Znp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzNTAwNjIsImV4cCI6MjA5MzkyNjA2Mn0.EXYCHwQTZCppjT0JU3nVBniehCiY9SVK9JJzxdgrhNY';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ═══════════════════════════════════════════════
+// 2. GLOBALS
+// ═══════════════════════════════════════════════
+let allRegistrations = [];
+let currentFilter = 'all';
+let currentStep = 1;
+const memberRoles = ['Speaker 1','Speaker 2','Speaker 3','Bench'];
+const memberFiles = [null,null,null,null];
+
+// ═══════════════════════════════════════════════
+// 3. HERO PARTICLE CANVAS
+// ═══════════════════════════════════════════════
+(function initParticles(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for(let i = 0; i < 70; i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*1.5+0.3,
+      vx: (Math.random()-0.5)*0.3,
+      vy: (Math.random()-0.5)*0.3,
+      a: Math.random()
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(200,160,40,${p.a*0.6})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ═══════════════════════════════════════════════
+// 4. NAVBAR
+// ═══════════════════════════════════════════════
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+// Close nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// ═══════════════════════════════════════════════
+// 5. SCROLL REVEAL
+// ═══════════════════════════════════════════════
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ═══════════════════════════════════════════════
+// 6. TOAST
+// ═══════════════════════════════════════════════
+function toast(msg, type='info', duration=3500){
+  const tc = document.getElementById('toast-container');
+  const icons = {success:'✅',error:'❌',info:'💡'};
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  tc.appendChild(t);
+  setTimeout(()=>{
+    t.style.animation = 'toastOut 0.3s ease forwards';
+    setTimeout(()=>t.remove(),300);
+  },duration);
+}
+
+// ═══════════════════════════════════════════════
+// 7. COUNTER ANIMATION
+// ═══════════════════════════════════════════════
+function animateCount(el, target, duration=1200){
+  let start = 0, step = target/60;
+  const timer = setInterval(()=>{
+    start = Math.min(start+step, target);
+    el.textContent = Math.floor(start);
+    if(start>=target){ el.textContent = target; clearInterval(timer); }
+  }, duration/60);
+}
+
+// ═══════════════════════════════════════════════
+// 8. FETCH STATS
+// ═══════════════════════════════════════════════
+async function fetchStats(){
+  try {
+    const { data, error } = await db.from('registrations').select('id,institution');
+    if(error) throw error;
+    const teams = data.length;
+    const insts = new Set(data.map(r=>r.institution).filter(Boolean)).size;
+    const parts = teams*4;
+
+    animateCount(document.getElementById('statTeams'), teams);
+    animateCount(document.getElementById('statInst'), insts);
+    animateCount(document.getElementById('statPart'), parts);
+  } catch(e){
+    console.error('Stats error:', e);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 9. FETCH BOARD
+// ═══════════════════════════════════════════════
+async function fetchBoard(){
+  try {
+    const { data, error } = await db
+      .from('registrations')
+      .select('id,team_name,institution,representative_name,team_type,created_at')
+      .order('created_at',{ascending:false});
+    if(error) throw error;
+    allRegistrations = data || [];
+    renderBoard();
+  } catch(e){
+    console.error('Board error:', e);
+    document.getElementById('boardTbody').innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">⚠️</div><p>Failed to load registrations</p></div></td></tr>`;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 10. RENDER BOARD
+// ═══════════════════════════════════════════════
+function renderBoard(){
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const sort = document.getElementById('sortSelect').value;
+
+  let data = [...allRegistrations];
+  if(currentFilter !== 'all') data = data.filter(r=>r.team_type===currentFilter);
+  if(query) data = data.filter(r=>
+    (r.team_name||'').toLowerCase().includes(query) ||
+    (r.institution||'').toLowerCase().includes(query) ||
+    (r.representative_name||'').toLowerCase().includes(query)
+  );
+  data.sort((a,b)=>{
+    const diff = new Date(a.created_at)-new Date(b.created_at);
+    return sort==='asc' ? diff : -diff;
+  });
+
+  const tbody = document.getElementById('boardTbody');
+  if(!data.length){
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">🔍</div><p>No teams found matching your search</p></div></td></tr>`;
+    document.getElementById('boardCount').textContent = '0 teams';
+    return;
+  }
+
+  tbody.innerHTML = data.map((r,i)=>`
+    <tr>
+      <td class="serial-cell">${String(i+1).padStart(2,'0')}</td>
+      <td class="team-name-cell">${esc(r.team_name)}</td>
+      <td>${esc(r.institution||'—')}</td>
+      <td>${esc(r.representative_name)}</td>
+      <td><span class="type-badge ${r.team_type==='Open'?'type-open':'type-inst'}">${esc(r.team_type)}</span></td>
+      <td class="date-cell">${formatDate(r.created_at)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('boardCount').textContent = `${data.length} team${data.length!==1?'s':''} shown`;
+  document.getElementById('boardPage').textContent = `Total: ${allRegistrations.length}`;
+}
+
+function esc(s){ return String(s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+function formatDate(d){
+  if(!d) return '—';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+// Filter
+function setFilter(btn, val){
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBoard();
+}
+
+// Debounced search
+let searchTimeout;
+function debouncedSearch(){ clearTimeout(searchTimeout); searchTimeout = setTimeout(renderBoard, 300); }
+
+// ═══════════════════════════════════════════════
+// 11. MEMBER CARDS
+// ═══════════════════════════════════════════════
+function buildMemberCards(){
+  const c = document.getElementById('members-container');
+  c.innerHTML = '';
+  const nums = ['①','②','③','④'];
+  memberRoles.forEach((role,i)=>{
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.id = `member-card-${i}`;
+    card.innerHTML = `
+      <div class="member-header">
+        <div class="member-role-badge">
+          <span class="role-num">${i+1}</span> ${role}
+        </div>
+        <span style="font-size:0.75rem;color:var(--text-3);font-family:var(--font-mono)">Required</span>
+      </div>
+      <div class="photo-upload-area" id="photo-area-${i}" onclick="document.getElementById('photo-input-${i}').click()">
+        <input type="file" id="photo-input-${i}" accept="image/*" style="display:none" onchange="handlePhotoSelect(${i})"/>
+        <img class="photo-preview" id="photo-prev-${i}"/>
+        <div id="photo-placeholder-${i}">
+          <div class="photo-upload-icon">📷</div>
+          <div class="photo-upload-text"><strong>Upload Photo</strong> · JPG, PNG, WebP · Max 5MB</div>
+        </div>
+      </div>
+      <div class="upload-progress" id="upload-prog-${i}"><div class="upload-bar" id="upload-bar-${i}"></div></div>
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name <span>*</span></label>
+          <input type="text" id="m${i}_name" placeholder="Member's full name"/>
+          <div class="field-error">Name required</div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="m${i}_email" placeholder="member@email.com"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>WhatsApp</label>
+          <input type="tel" id="m${i}_whatsapp" placeholder="+880XXXXXXXXXX"/>
+        </div>
+        <div class="field">
+          <label>Facebook</label>
+          <input type="url" id="m${i}_fb" placeholder="facebook.com/profile"/>
+        </div>
+      </div>
+    `;
+    c.appendChild(card);
+  });
+}
+
+function handlePhotoSelect(i){
+  const input = document.getElementById(`photo-input-${i}`);
+  const file = input.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){ toast('Photo must be under 5MB','error'); return; }
+  memberFiles[i] = file;
+  const prev = document.getElementById(`photo-prev-${i}`);
+  const placeholder = document.getElementById(`photo-placeholder-${i}`);
+  const reader = new FileReader();
+  reader.onload = e => {
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+    placeholder.style.display = 'none';
+    document.getElementById(`photo-area-${i}`).classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══════════════════════════════════════════════
+// 12. TYPE SELECTOR
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.type-option').forEach(opt=>{
+    opt.addEventListener('click',function(){
+      document.querySelectorAll('.type-option').forEach(o=>o.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+});
+
+// ═══════════════════════════════════════════════
+// 13. STEP NAVIGATION
+// ═══════════════════════════════════════════════
+async function goStep(n){
+  // Validate before advancing
+  if(n > currentStep){
+    const valid = await validateStep(currentStep);
+    if(!valid) return;
+  }
+
+  if(n===3 && currentStep<=2) buildMemberCards();
+  if(n===4) buildSummary();
+
+  document.getElementById(`step-${currentStep}`).classList.remove('active');
+  document.getElementById(`si-${currentStep}`).classList.remove('active');
+  document.getElementById(`si-${currentStep}`).classList.add('done');
+  if(n > currentStep && currentStep < 4){
+    const conn = document.getElementById(`sc-${currentStep}`);
+    if(conn) conn.classList.add('done');
+  }
+
+  currentStep = n;
+  document.getElementById(`step-${n}`).classList.add('active');
+  document.getElementById(`si-${n}`).classList.remove('done');
+  document.getElementById(`si-${n}`).classList.add('active');
+
+  // Scroll to form
+  document.getElementById('register').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════════════════
+// 14. VALIDATION
+// ═══════════════════════════════════════════════
+async function validateStep(step){
+  if(step===1){
+    let ok = true;
+    const fields = [
+      {id:'rep_name',check:v=>v.trim().length>0,err:'Name is required'},
+      {id:'rep_inst',check:v=>v.trim().length>0,err:'Institution is required'},
+      {id:'rep_email',check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),err:'Valid email required'},
+      {id:'rep_mobile',check:v=>v.trim().length>=7,err:'Valid mobile required'},
+    ];
+    fields.forEach(f=>{
+      const el = document.getElementById(f.id);
+      const parent = el.closest('.field');
+      if(!f.check(el.value)){
+        parent.classList.add('has-error');
+        parent.querySelector('.field-error').textContent = f.err;
+        ok = false;
+      } else { parent.classList.remove('has-error'); }
+    });
+    if(!ok) return false;
+
+    // Check unique email/mobile
+    try {
+      const { data: emailCheck } = await db.from('registrations').select('id').eq('email', document.getElementById('rep_email').value.trim()).maybeSingle();
+      if(emailCheck){ setFieldError('rep_email','This email is already registered'); return false; }
+      const { data: mobCheck } = await db.from('registrations').select('id').eq('mobile', document.getElementById('rep_mobile').value.trim()).maybeSingle();
+      if(mobCheck){ setFieldError('rep_mobile','This mobile is already registered'); return false; }
+    } catch(e){}
+    return true;
+  }
+
+  if(step===2){
+    const teamName = document.getElementById('team_name').value.trim();
+    if(!teamName){ setFieldError('team_name','Team name is required'); return false; }
+    clearFieldError('team_name');
+    try {
+      const { data } = await db.from('registrations').select('id').eq('team_name', teamName).maybeSingle();
+      if(data){ setFieldError('team_name','This team name is already taken'); return false; }
+    } catch(e){}
+    return true;
+  }
+
+  if(step===3){
+    for(let i=0;i<4;i++){
+      const nameEl = document.getElementById(`m${i}_name`);
+      if(!nameEl.value.trim()){
+        nameEl.closest('.field').classList.add('has-error');
+        toast(`Please fill in the name for ${memberRoles[i]}`,'error');
+        return false;
+      }
+      nameEl.closest('.field').classList.remove('has-error');
+    }
+    return true;
+  }
+
+  return true;
+}
+
+function setFieldError(id, msg){
+  const el = document.getElementById(id);
+  const parent = el.closest('.field');
+  parent.classList.add('has-error');
+  parent.querySelector('.field-error').textContent = msg;
+}
+function clearFieldError(id){
+  const el = document.getElementById(id);
+  el.closest('.field').classList.remove('has-error');
+}
+
+// ═══════════════════════════════════════════════
+// 15. SUMMARY
+// ═══════════════════════════════════════════════
+function buildSummary(){
+  const teamType = document.querySelector('input[name="team_type"]:checked')?.value || 'Open';
+  const box = document.getElementById('summary-box');
+  box.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px">
+      <div><span style="color:var(--text-3);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px">Representative</span><br/><strong>${esc(document.getElementById('rep_name').value)}</strong></div>
+      <div><span style="color:var(--text-3);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px">Institution</span><br/><strong>${esc(document.getElementById('rep_inst').value)}</strong></div>
+      <div><span style="color:var(--text-3);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px">Team Name</span><br/><strong style="color:var(--gold)">${esc(document.getElementById('team_name').value)}</strong></div>
+      <div><span style="color:var(--text-3);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px">Team Type</span><br/><span class="type-badge ${teamType==='Open'?'type-open':'type-inst'}">${teamType}</span></div>
+    </div>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+      <span style="color:var(--text-3);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px">Members</span><br/>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        ${memberRoles.map((r,i)=>`<span style="background:var(--elevated);border:1px solid var(--border);padding:4px 12px;border-radius:100px;font-size:0.78rem"><span style="color:var(--gold)">${r}</span> · ${esc(document.getElementById(`m${i}_name`)?.value||'—')}</span>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════
+// 16. SUBMIT
+// ═══════════════════════════════════════════════
+async function submitRegistration(){
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    // Upload photos
+    const photoUrls = [];
+    for(let i=0;i<4;i++){
+      if(memberFiles[i]){
+        const bar = document.getElementById(`upload-bar-${i}`);
+        const prog = document.getElementById(`upload-prog-${i}`);
+        prog.classList.add('active');
+        bar.style.width = '30%';
+
+        const ext = memberFiles[i].name.split('.').pop();
+        const path = `members/${Date.now()}_${i}.${ext}`;
+        const { data, error } = await db.storage.from('photos').upload(path, memberFiles[i], { upsert: true });
+        if(error) throw error;
+
+        bar.style.width = '100%';
+        const { data: urlData } = db.storage.from('photos').getPublicUrl(path);
+        photoUrls.push(urlData.publicUrl);
+      } else {
+        photoUrls.push(null);
+      }
+    }
+
+    // Insert registration
+    const teamType = document.querySelector('input[name="team_type"]:checked')?.value || 'Open';
+    const regPayload = {
+      representative_name: document.getElementById('rep_name').value.trim(),
+      email: document.getElementById('rep_email').value.trim(),
+      mobile: document.getElementById('rep_mobile').value.trim(),
+      whatsapp: document.getElementById('rep_whatsapp').value.trim() || null,
+      institution: document.getElementById('rep_inst').value.trim(),
+      facebook_link: document.getElementById('rep_fb').value.trim() || null,
+      team_name: document.getElementById('team_name').value.trim(),
+      team_type: teamType,
+      additional_query: document.getElementById('additional_query').value.trim() || null,
+    };
+
+    const { data: regData, error: regErr } = await db.from('registrations').insert(regPayload).select().single();
+    if(regErr) throw regErr;
+
+    // Insert members
+    const membersPayload = memberRoles.map((role,i)=>({
+      registration_id: regData.id,
+      member_role: role,
+      full_name: document.getElementById(`m${i}_name`).value.trim(),
+      email: document.getElementById(`m${i}_email`).value.trim() || null,
+      whatsapp: document.getElementById(`m${i}_whatsapp`).value.trim() || null,
+      facebook_link: document.getElementById(`m${i}_fb`).value.trim() || null,
+      photo_url: photoUrls[i] || null,
+    }));
+
+    const { error: memberErr } = await db.from('team_members').insert(membersPayload);
+    if(memberErr) throw memberErr;
+
+    // Show success
+    document.getElementById('modalRegId').textContent = `Registration ID: ${regData.id.slice(0,8).toUpperCase()}`;
+    document.getElementById('successModal').classList.add('open');
+
+    // Refresh board/stats
+    fetchBoard();
+    fetchStats();
+
+  } catch(e){
+    console.error(e);
+    toast(e.message || 'Submission failed. Please try again.','error',5000);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 17. MODAL
+// ═══════════════════════════════════════════════
+function closeModal(){
+  document.getElementById('successModal').classList.remove('open');
+  resetForm();
+  document.getElementById('board').scrollIntoView({behavior:'smooth'});
+}
+
+function resetForm(){
+  currentStep = 1;
+  memberFiles.fill(null);
+
+  // Reset step indicators
+  for(let i=1;i<=4;i++){
+    const si = document.getElementById(`si-${i}`);
+    si.classList.remove('active','done');
+    if(i===1) si.classList.add('active');
+  }
+  for(let i=1;i<=3;i++){
+    document.getElementById(`sc-${i}`)?.classList.remove('done');
+  }
+
+  // Reset form fields
+  ['rep_name','rep_email','rep_mobile','rep_whatsapp','rep_inst','rep_fb','team_name','additional_query']
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+
+  document.querySelectorAll('.type-option').forEach((o,i)=>{ o.classList.toggle('selected',i===0); });
+  document.querySelectorAll('input[name="team_type"]')[0].checked = true;
+
+  // Show steps
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('members-container').innerHTML = '';
+}
+
+// ═══════════════════════════════════════════════
+// 18. INIT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  fetchStats();
+  fetchBoard();
+
+  // Re-observe newly added reveal elements
+  setTimeout(()=>{
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+  },100);
+});
+</script>
+</body>
+</html>
