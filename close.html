@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="1st BDS Nationals 2026 Pre-Registration">
+<meta property="og:image" content="thumbnail.jpg">
+<title>BDS 1st Nationals 2026 — Pre-Registration Closed</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #8B6914;
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --dark: #070B0F;
+    --darker: #040608;
+    --mid: #111820;
+    --surface: #141C26;
+    --surface2: #1A2535;
+    --white: #F5F0E8;
+    --muted: #7A8899;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--darker);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED PITCH BACKGROUND ── */
+  .pitch-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .pitch-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(7,11,15,0.92) 0%, rgba(7,11,15,0.70) 40%, rgba(7,11,15,0.90) 100%),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 80px,
+        rgba(255,255,255,0.018) 80px,
+        rgba(255,255,255,0.018) 82px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 60px,
+        rgba(255,255,255,0.018) 60px,
+        rgba(255,255,255,0.018) 62px
+      );
+    background-color: #060F08;
+  }
+
+  /* Pitch lines SVG overlay */
+  .pitch-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.06;
+  }
+
+  /* Spotlight effects */
+  .spotlight {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: pulse-spot 6s ease-in-out infinite;
+  }
+  .spotlight-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    top: -200px; left: 10%;
+    animation-delay: 0s;
+  }
+  .spotlight-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+    top: 20%; right: 5%;
+    animation-delay: 3s;
+  }
+  .spotlight-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%);
+    bottom: 10%; left: 30%;
+    animation-delay: 1.5s;
+  }
+  @keyframes pulse-spot {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: float-up linear infinite;
+    opacity: 0;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 60px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    backdrop-filter: blur(12px);
+    background: rgba(4,6,8,0.5);
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-crest {
+    width: 56px; height: 56px;
+    position: relative;
+    animation: crest-glow 4s ease-in-out infinite;
+  }
+  @keyframes crest-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(201,168,76,0.4)); }
+    50% { filter: drop-shadow(0 0 20px rgba(201,168,76,0.8)); }
+  }
+
+  .logo-text { line-height: 1.1; }
+  .logo-text .abbr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .logo-text .full {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  nav { display: flex; gap: 36px; align-items: center; }
+  nav a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 600;
+  }
+  nav a:hover { color: var(--gold); }
+
+  .nav-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border: 1px solid var(--gold-dark);
+    color: var(--gold);
+    font-weight: 700;
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 10;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px 60px;
+  }
+
+  .edition-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.2s forwards;
+  }
+  .edition-tag::before, .edition-tag::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .edition-tag::after { background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 148px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.5s forwards;
+  }
+  .hero-title .line1 { color: var(--white); display: block; }
+  .hero-title .line2 {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--gold);
+    display: block;
+  }
+  .hero-title .line3 { color: var(--gold); display: block; }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 20px 0 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.8s forwards;
+  }
+
+  /* ── CLOSED BANNER ── */
+  .closed-banner {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fade-up 1s ease 1s forwards;
+  }
+
+  .closed-stamp {
+    position: relative;
+    border: 3px solid var(--red);
+    padding: 20px 56px;
+    transform: rotate(-2deg);
+    animation: stamp-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s both;
+    background: rgba(192,57,43,0.08);
+    box-shadow: 0 0 40px rgba(192,57,43,0.25), inset 0 0 40px rgba(192,57,43,0.05);
+  }
+  .closed-stamp::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(192,57,43,0.4);
+  }
+  @keyframes stamp-in {
+    0% { transform: rotate(-2deg) scale(2.5); opacity: 0; }
+    100% { transform: rotate(-2deg) scale(1); opacity: 1; }
+  }
+
+  .closed-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 8px;
+    color: var(--red);
+    text-shadow: 0 0 30px rgba(231,76,60,0.5);
+    line-height: 1;
+  }
+  .closed-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(192,57,43,0.8);
+    font-weight: 600;
+  }
+
+  .closed-notice {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 8px;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TOURNAMENT INFO ── */
+  .info-strip {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0 60px;
+    margin: 40px 0;
+  }
+
+  .info-card {
+    flex: 1;
+    max-width: 240px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: none;
+    padding: 32px 28px;
+    background: rgba(20,28,38,0.8);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    transition: all 0.3s;
+    opacity: 0;
+    animation: fade-up 0.6s ease forwards;
+  }
+  .info-card:first-child { border-left: 1px solid rgba(201,168,76,0.15); }
+  .info-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.35);
+  }
+  .info-card:nth-child(1) { animation-delay: 1.4s; }
+  .info-card:nth-child(2) { animation-delay: 1.5s; }
+  .info-card:nth-child(3) { animation-delay: 1.6s; }
+  .info-card:nth-child(4) { animation-delay: 1.7s; }
+
+  .info-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .info-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    display: block;
+    line-height: 1.1;
+  }
+  .info-detail {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ── DIVIDER ── */
+  .gold-divider {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px 60px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 2s forwards;
+  }
+  .gold-divider::before, .gold-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .divider-diamond {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── UPCOMING SECTION ── */
+  .upcoming-section {
+    position: relative;
+    z-index: 10;
+    padding: 40px 60px 80px;
+    text-align: center;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  .timeline {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
+  }
+  .timeline-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+  }
+  .step-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-dark);
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s;
+  }
+  .step-dot.done {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(192,57,43,0.1);
+  }
+  .step-dot.active {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.15);
+    box-shadow: 0 0 20px rgba(201,168,76,0.4);
+    animation: ring-pulse 2s ease-in-out infinite;
+  }
+  @keyframes ring-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.4); }
+    50% { box-shadow: 0 0 40px rgba(201,168,76,0.7); }
+  }
+  .step-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+  }
+  .step-date {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .step-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 3px 10px;
+  }
+  .status-closed { color: var(--red); border: 1px solid rgba(192,57,43,0.4); }
+  .status-open { color: var(--gold); border: 1px solid rgba(201,168,76,0.4); }
+  .status-upcoming { color: var(--muted); border: 1px solid rgba(122,136,153,0.3); }
+
+  /* ── FOOTBALL ANIMATION ── */
+  .ball-orbit {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .ball {
+    position: absolute;
+    font-size: 28px;
+    animation: orbit linear infinite;
+    opacity: 0.12;
+    filter: blur(0.5px);
+  }
+  @keyframes orbit {
+    from { transform: translateY(110vh) rotate(0deg); }
+    to { transform: translateY(-20vh) rotate(720deg); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 10;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(4,6,8,0.7);
+    backdrop-filter: blur(8px);
+  }
+  .footer-copy {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer-copy strong { color: var(--gold); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── SCAN LINES OVERLAY ── */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.03) 3px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    header { padding: 16px 24px; }
+    nav { display: none; }
+    .hero { padding: 60px 24px 40px; }
+    .hero-title { font-size: clamp(60px, 15vw, 100px); }
+    .info-strip { padding: 0 16px; flex-wrap: wrap; }
+    .info-card { min-width: calc(50% - 1px); max-width: 100%; }
+    .info-card:nth-child(2) { border-left: none; }
+    .info-card:nth-child(3) { border-left: 1px solid rgba(201,168,76,0.15); }
+    .upcoming-section { padding: 40px 24px 60px; }
+    .timeline { flex-direction: column; gap: 24px; }
+    .timeline::before { display: none; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="pitch-bg">
+  <svg class="pitch-lines" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pitch outline -->
+    <rect x="160" y="80" width="1600" height="920" fill="none" stroke="white" stroke-width="2"/>
+    <!-- Center line -->
+    <line x1="960" y1="80" x2="960" y2="1000" stroke="white" stroke-width="2"/>
+    <!-- Center circle -->
+    <circle cx="960" cy="540" r="120" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="960" cy="540" r="4" fill="white"/>
+    <!-- Penalty areas -->
+    <rect x="160" y="320" width="260" height="400" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="1500" y="320" width="260" height="400" fill="none" stroke="white" stroke-width="2"/>
+    <!-- Goal areas -->
+    <rect x="160" y="420" width="100" height="200" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="1660" y="420" width="100" height="200" fill="none" stroke="white" stroke-width="2"/>
+    <!-- Corner arcs -->
+    <path d="M160,100 A30,30 0 0,1 190,80" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1730,80 A30,30 0 0,1 1760,110" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1760,970 A30,30 0 0,1 1730,1000" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M190,1000 A30,30 0 0,1 160,970" fill="none" stroke="white" stroke-width="2"/>
+    <!-- Penalty spots -->
+    <circle cx="380" cy="540" r="4" fill="white"/>
+    <circle cx="1540" cy="540" r="4" fill="white"/>
+    <!-- Penalty arcs -->
+    <path d="M290,440 A130,130 0 0,0 290,640" fill="none" stroke="white" stroke-width="2"/>
+    <path d="M1630,440 A130,130 0 0,1 1630,640" fill="none" stroke="white" stroke-width="2"/>
+  </svg>
+
+  <div class="spotlight spotlight-1"></div>
+  <div class="spotlight spotlight-2"></div>
+  <div class="spotlight spotlight-3"></div>
+
+  <div class="particles" id="particles"></div>
+</div>
+
+<!-- Scan lines -->
+<div class="scanlines"></div>
+
+<!-- Floating balls -->
+<div class="ball-orbit" id="balls"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-mark">
+    <svg class="logo-crest" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 4L48 14V34L28 52L8 34V14L28 4Z" fill="rgba(201,168,76,0.12)" stroke="#C9A84C" stroke-width="1.5"/>
+      <path d="M28 10L42 18V32L28 46L14 32V18L28 10Z" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="0.5"/>
+      <text x="28" y="34" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#C9A84C" letter-spacing="1">BDS</text>
+      <circle cx="28" cy="18" r="3" fill="#C9A84C" opacity="0.8"/>
+    </svg>
+    <div class="logo-text">
+      <div class="abbr">BDS</div>
+      <div class="full">Bangladesh Debatars Society</div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Teams</a>
+    <a href="#">Schedule</a>
+    <a href="#">Gallery</a>
+    <span class="nav-badge">2026</span>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="edition-tag">— 1st National Championship —</div>
+  <div class="hero-eyebrow">Inaugural Edition • Bangladesh</div>
+  <h1 class="hero-title">
+    <span class="line1">BDS</span>
+    <span class="line2">NATIONALS</span>
+    <span class="line3">2026</span>
+  </h1>
+  <p class="hero-subtitle">The Future of Bangladesh Football Begins Here</p>
+
+  <div class="closed-banner">
+    <div class="closed-stamp">
+      <div class="closed-text">Pre-Registration</div>
+      <div class="closed-text" style="color: var(--red-bright);">Closed</div>
+      <div class="closed-sub">Window has ended</div>
+    </div>
+    <div class="closed-notice">Pre-registration period has officially ended · Stay tuned for direct registration</div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-card">
+    <span class="info-icon">🏆</span>
+    <span class="info-label">Championship</span>
+    <span class="info-value">1st</span>
+    <span class="info-detail">Inaugural Nationals</span>
+  </div>
+  <div class="info-card">
+    <span class="info-icon">📅</span>
+    <span class="info-label">Tournament Year</span>
+    <span class="info-value">2026</span>
+    <span class="info-detail">Bangladesh</span>
+  </div>
+  <div class="info-card">
+    <span class="info-icon">⚽</span>
+    <span class="info-label">Format</span>
+    <span class="info-value">Nationals</span>
+    <span class="info-detail">Full Tournament</span>
+  </div>
+  <div class="info-card">
+    <span class="info-icon">🔒</span>
+    <span class="info-label">Pre-Reg Status</span>
+    <span class="info-value" style="color: var(--red);">CLOSED</span>
+    <span class="info-detail">Window Ended</span>
+  </div>
+</div>
+
+<!-- GOLD DIVIDER -->
+<div class="gold-divider">
+  <div class="divider-diamond"></div>
+</div>
+
+<!-- TIMELINE SECTION -->
+<section class="upcoming-section">
+  <span class="section-label">Registration Timeline</span>
+  <span class="section-title">Where We Stand</span>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="step-dot done">✓</div>
+      <div class="step-name">Pre-Registration</div>
+      <div class="step-date">Phase 1</div>
+      <div class="step-status status-closed">Closed</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-dot active">→</div>
+      <div class="step-name">Direct Registration</div>
+      <div class="step-date">Phase 2</div>
+      <div class="step-status status-open">Opening Soon</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">
+    © 2026 <strong>BDS Nationals</strong> · Bangladesh Football · All Rights Reserved
+  </div>
+  <div class="footer-links">
+    <a href="#">Contact</a>
+    <a href="#">Rules</a>
+    <a href="#">Media</a>
+    <a href="#">Sponsors</a>
+  </div>
+</footer>
+
+<script>
+  // Generate particles
+  const pContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      animation-duration: ${Math.random() * 12 + 8}s;
+      animation-delay: ${Math.random() * 10}s;
+      --drift: ${(Math.random() - 0.5) * 80}px;
+      opacity: 0;
+    `;
+    pContainer.appendChild(p);
+  }
+
+  // Floating footballs
+  const ballContainer = document.getElementById('balls');
+  const emojis = ['⚽'];
+  for (let i = 0; i < 8; i++) {
+    const b = document.createElement('div');
+    b.className = 'ball';
+    b.textContent = '⚽';
+    b.style.cssText = `
+      left: ${Math.random() * 100}%;
+      font-size: ${Math.random() * 30 + 16}px;
+      animation-duration: ${Math.random() * 20 + 15}s;
+      animation-delay: ${Math.random() * -20}s;
+      opacity: ${Math.random() * 0.08 + 0.04};
+    `;
+    ballContainer.appendChild(b);
+  }
+</script>
+</body>
+</html>
