@@ -141,11 +141,17 @@ body{background:var(--dark);color:var(--white);font-family:var(--font-body);min-
 .segment-card::after{content:'';position:absolute;inset:0;background:transparent;transition:all .3s}
 .segment-card.selected-isc{border-color:#3B82F6;background:rgba(59,130,246,0.08);box-shadow:0 0 24px rgba(59,130,246,0.2)}
 .segment-card.selected-iv{border-color:var(--purple);background:var(--purple4);box-shadow:0 0 24px rgba(139,92,246,0.2)}
+/* Disabled segment card */
+.segment-card.disabled{cursor:not-allowed;opacity:0.45;user-select:none}
+.segment-card.disabled:hover{transform:none;border-color:var(--border);background:var(--surface);box-shadow:none}
 .seg-icon{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .seg-icon.isc{background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3)}
 .seg-icon.iv{background:var(--purple4);border:1px solid rgba(139,92,246,0.3)}
 .seg-name{font-family:var(--font-display);font-size:22px;letter-spacing:2px;margin-bottom:4px}
 .seg-full{font-family:var(--font-ui);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+/* Cancelled ribbon */
+.seg-cancelled-ribbon{position:absolute;top:14px;right:-26px;background:var(--red);color:#fff;font-family:var(--font-ui);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 36px;transform:rotate(30deg);z-index:2;pointer-events:none}
+.seg-cancelled-label{margin-top:10px;font-family:var(--font-ui);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);font-weight:700}
 input[type=radio].seg-radio{display:none}
 
 /* Upload zones */
@@ -301,6 +307,10 @@ input[type=radio].seg-radio{display:none}
 .info-value{font-family:var(--font-body);font-size:14px;color:var(--white);flex:1}
 .info-value a{color:var(--gold);text-decoration:none}
 .info-value a:hover{text-decoration:underline}
+/* Rejection section inside modal */
+.modal-rejection{padding:20px 28px;border-top:1px solid rgba(239,68,68,0.2);background:rgba(239,68,68,0.04)}
+.modal-rejection-title{font-family:var(--font-ui);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.modal-rejection-reason{font-family:var(--font-body);font-size:14px;color:rgba(240,237,232,0.85);line-height:1.7;background:var(--red4);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:14px 16px}
 .modal-share{padding:20px 28px 28px;border-top:1px solid var(--border2)}
 .share-label{font-family:var(--font-ui);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;text-align:center}
 .share-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -423,8 +433,8 @@ input[type=radio].seg-radio{display:none}
         <span class="hero-stat-label">Approved</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num" id="stat-segments">2</span>
-        <span class="hero-stat-label">Segments</span>
+        <span class="hero-stat-num" id="stat-segments">1</span>
+        <span class="hero-stat-label">Segment</span>
       </div>
     </div>
   </div>
@@ -522,9 +532,17 @@ input[type=radio].seg-radio{display:none}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             Select Segment
           </div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6">Choose the competition segment you are applying to adjudicate. This cannot be changed after submission.</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6">Only the ISC segment is available for registration. The IV segment has been cancelled.</p>
+
+          <!-- IV CANCELLED notice banner -->
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;margin-bottom:20px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span style="font-family:var(--font-ui);font-size:12px;letter-spacing:1px;color:#FCA5A5">The <strong style="color:#F87171">IV (Inter Varsity)</strong> segment has been cancelled. Please register under <strong style="color:#60A5FA">ISC (Inter School College)</strong>.</span>
+          </div>
+
           <div class="segment-grid">
-            <label class="segment-card" id="seg-isc" onclick="selectSegment('ISC')">
+            <!-- ISC — active -->
+            <label class="segment-card selected-isc" id="seg-isc" onclick="selectSegment('ISC')">
               <input type="radio" class="seg-radio" name="segment" value="ISC" id="r_ISC" checked>
               <div class="seg-icon isc">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -532,15 +550,21 @@ input[type=radio].seg-radio{display:none}
               <div class="seg-name" style="color:#60A5FA">ISC</div>
               <div class="seg-full">Inter School College</div>
             </label>
-            <label class="segment-card" id="seg-iv" onclick="selectSegment('IV')">
-              <input type="radio" class="seg-radio" name="segment" value="IV" id="r_IV">
-              <div class="seg-icon iv">
+
+            <!-- IV — disabled/cancelled -->
+            <div class="segment-card disabled" id="seg-iv" title="IV segment has been cancelled">
+              <input type="radio" class="seg-radio" name="segment" value="IV" id="r_IV" disabled>
+              <!-- Diagonal cancelled ribbon -->
+              <div class="seg-cancelled-ribbon">CANCELLED</div>
+              <div class="seg-icon iv" style="filter:grayscale(1);opacity:.6">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
               </div>
-              <div class="seg-name" style="color:#A78BFA">IV</div>
-              <div class="seg-full">Inter Varsity</div>
-            </label>
+              <div class="seg-name" style="color:var(--muted2);text-decoration:line-through">IV</div>
+              <div class="seg-full" style="color:var(--muted2)">Inter Varsity</div>
+              <div class="seg-cancelled-label">Segment Cancelled</div>
+            </div>
           </div>
+
           <div style="margin-top:20px;padding:14px;background:var(--gold4);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-family:var(--font-ui);font-size:12px;letter-spacing:1px;color:var(--gold)" id="seg-selected-msg">
             Selected: <strong>Inter School College (ISC)</strong>
           </div>
@@ -758,7 +782,7 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── STATE ──
 let currentStep = 1;
-let selectedSegment = 'ISC';
+let selectedSegment = 'ISC'; // IV is cancelled — always ISC
 let currentFilter = 'all';
 let currentView = 'card';
 let currentStatusTab = 'email';
@@ -870,21 +894,19 @@ function validateStep1(){
   return ok;
 }
 
-// ── SEGMENT ──
+// ── SEGMENT — IV is cancelled, only ISC allowed ──
 function selectSegment(val){
-  selectedSegment=val;
-  document.getElementById('r_ISC').checked=val==='ISC';
-  document.getElementById('r_IV').checked=val==='IV';
-  document.getElementById('seg-isc').classList.remove('selected-isc');
-  document.getElementById('seg-iv').classList.remove('selected-iv');
-  if(val==='ISC'){
-    document.getElementById('seg-isc').classList.add('selected-isc');
-    document.getElementById('seg-selected-msg').innerHTML='Selected: <strong>Inter School College (ISC)</strong>';
-  } else {
-    document.getElementById('seg-iv').classList.add('selected-iv');
-    document.getElementById('seg-selected-msg').innerHTML='Selected: <strong>Inter Varsity (IV)</strong>';
+  // Block IV selection entirely
+  if(val === 'IV'){
+    toast('The IV segment has been cancelled. Please register under ISC.', 'error');
+    return;
   }
+  selectedSegment = 'ISC';
+  document.getElementById('r_ISC').checked = true;
+  document.getElementById('seg-isc').classList.add('selected-isc');
+  document.getElementById('seg-selected-msg').innerHTML = 'Selected: <strong>Inter School College (ISC)</strong>';
 }
+// Initialise to ISC
 selectSegment('ISC');
 
 // ── FILE UPLOAD ──
@@ -956,7 +978,7 @@ async function submitRegistration(){
       sender_number:senderNum,
       transaction_id:txnId,
       screenshot_url:ssUrl||null,
-      segment:selectedSegment,
+      segment:'ISC', // always ISC — IV is cancelled
       status:'Review Pending',
     };
 
@@ -1021,7 +1043,14 @@ function renderStatusCard(ia){
   const dotClass=s==='Approved'?'green':s==='Rejected'?'red':'gold';
   const segBadge=ia.segment==='ISC'?'<span class="status-badge badge-isc">ISC</span>':'<span class="status-badge badge-iv">IV</span>';
   const avatarHtml=ia.photo_url?`<img class="sc-avatar" src="${ia.photo_url}" alt="${esc(ia.full_name)}">`:`<div class="sc-avatar-placeholder">${svgUserIcon()}</div>`;
-  const rejHtml=s==='Rejected'&&ia.rejection_reason?`<div class="rejection-box"><div class="rejection-label">Rejection Reason</div><div class="rejection-text">${esc(ia.rejection_reason)}</div></div>`:'';
+  const rejHtml=s==='Rejected'&&ia.rejection_reason
+    ?`<div class="rejection-box"><div class="rejection-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        Rejection Reason
+      </div><div class="rejection-text">${esc(ia.rejection_reason)}</div></div>`
+    :s==='Rejected'
+    ?`<div class="rejection-box"><div class="rejection-label">Rejection Reason</div><div class="rejection-text" style="color:var(--muted);font-style:italic">No reason provided. Please contact the organisers.</div></div>`
+    :'';
   const dt=ia.created_at?new Date(ia.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
   return `<div class="glass-card status-card" style="padding:28px;margin-bottom:16px;animation:fadeUp .4s ease">
     <div class="sc-top">
@@ -1138,17 +1167,30 @@ async function openProfile(id){
   document.body.style.overflow='hidden';
   content.innerHTML=`<div class="page-loader"><div class="loading-spinner"></div>Loading profile...</div>`;
   try{
-    const {data,error}=await db.from(TABLE).select('id,full_name,institution,club_name,segment,status,photo_url,facebook_link,created_at').eq('id',id).single();
+    const {data,error}=await db.from(TABLE).select('id,full_name,institution,club_name,segment,status,rejection_reason,photo_url,facebook_link,created_at').eq('id',id).single();
     if(error)throw error;
     if(!data){content.innerHTML='<div style="padding:40px;text-align:center;color:var(--muted)">Profile not found</div>';return}
     const profileUrl=`${window.location.origin}${window.location.pathname}?id=${id}`;
     const s=data.status||'Review Pending';
     const bc=s==='Approved'?'badge-approved':s==='Rejected'?'badge-rejected':'badge-pending';
     const isApproved=s==='Approved';
+    const isRejected=s==='Rejected';
     const avatarHtml=data.photo_url?`<img class="modal-avatar" src="${data.photo_url}" alt="${esc(data.full_name)}">`:`<div class="modal-avatar-ph">${svgUserIcon(40)}</div>`;
     const segColor=data.segment==='IV'?'var(--purple2)':'#60A5FA';
     const segFull=data.segment==='ISC'?'Inter School College':'Inter Varsity';
     const dt=data.created_at?new Date(data.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'';
+
+    // Rejection section — shown only when status is Rejected
+    const rejectionSection = isRejected
+      ? `<div class="modal-rejection">
+          <div class="modal-rejection-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Application Rejected
+          </div>
+          <div class="modal-rejection-reason">${data.rejection_reason ? esc(data.rejection_reason) : '<span style="color:var(--muted);font-style:italic">No reason provided. Please contact the organisers.</span>'}</div>
+        </div>`
+      : '';
+
     content.innerHTML=`
       <div class="modal-header">
         <div class="modal-avatar-wrap">
@@ -1179,6 +1221,7 @@ async function openProfile(id){
           <span class="info-value">${dt}</span>
         </div>
       </div>
+      ${rejectionSection}
       <div class="modal-share">
         <div class="share-label">Share Profile</div>
         <div class="share-btns">
